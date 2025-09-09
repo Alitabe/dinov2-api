@@ -4,6 +4,11 @@ import torch, io, numpy as np
 from transformers import AutoImageProcessor, AutoModel
 from fastapi import FastAPI, UploadFile, Response
 from fastapi.middleware.cors import CORSMiddleware
+import os, transformers
+
+os.environ['TRANSFORMERS_CACHE'] = '/tmp/hf-cache'
+transformers.AutoImageProcessor.from_pretrained('facebook/dinov2-small')
+transformers.AutoModel.from_pretrained('facebook/dinov2-small')
 
 app = FastAPI()
 
@@ -29,4 +34,5 @@ async def dinov2(file: UploadFile):
 
 # Vercel 入口点
 async def app(scope, receive, send):
+
     await app(scope, receive, send)
